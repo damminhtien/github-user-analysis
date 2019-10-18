@@ -5,7 +5,7 @@ Github provide a powerful API that make developers can interact easily with its 
 
 ## Ver 1: on jupyter notebook :heavy_check_mark:
 
-(Chart were plotted by **plotly** can't display in github. In order to view, you can download > change **password** and **target_user** variable > run locally)
+(Chart were plotted by **plotly** can't display in github's jupyter notebook. In order to view, you can download [notebook](https://github.com/damminhtien/Github_user_analysis/blob/master/Github_user_analysis.ipynb) > change **password** and **target_user** variable > run locally)
 
 Some features:
 
