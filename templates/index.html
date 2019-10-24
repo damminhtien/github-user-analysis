@@ -443,6 +443,7 @@
         </div>
     </div>
     <!-- Bootstrap core JavaScript -->
+    <script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
     <script src="{{ url_for('static', filename = 'vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename = 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- Plugin JavaScript -->
@@ -457,13 +458,7 @@
             type: 'pie',
             data: {
                 datasets: [{
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                    ],
+                    data: {{data.lang.times_used}}
                     backgroundColor: [
                         window.chartColors.red,
                         window.chartColors.orange,
@@ -473,13 +468,7 @@
                     ],
                     label: 'Code Frequency'
                 }],
-                labels: [
-                    'Red',
-                    'Orange',
-                    'Yellow',
-                    'Green',
-                    'Blue'
-                ]
+                labels: {{data.lang.language_used}}
             },
             options: {
                 responsive: true
