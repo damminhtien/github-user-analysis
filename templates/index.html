@@ -27,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Portfolio</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Favourite Language</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Code Frequency</a>
@@ -56,7 +56,9 @@
             </div>
             <!-- Masthead Subheading -->
             <p class="masthead-subheading font-weight-light mb-0">{{data.user.bio}} - {{data.user.company}} - Public repos: {{data.user.public_repos}}</p>
-            <p class="masthead-subheading font-weight-light mb-0">{{data.user.bio}} - {{data.user.company}} - Public repos: {{data.user.public_repos}}</p>
+            <p class="masthead-subheading font-weight-light mb-0">Number Follower: {{data.user.followers}}</p>
+            <p class="masthead-subheading font-weight-light mb-0">Number Following: {{data.user.following}}</p>
+            <p class="masthead-subheading font-weight-light mb-0">Date joined: {{data.user.created_at}}</p>
         </div>
     </header>
     <!-- Portfolio Section -->
@@ -72,76 +74,9 @@
                 </div>
                 <div class="divider-custom-line"></div>
             </div>
-            <!-- Portfolio Grid Items -->
-            <div class="row">
-                <!-- Portfolio Item 1 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
-                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                            <div class="portfolio-item-caption-content text-center text-white">
-                                <i class="fas fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img class="img-fluid" src="{{ url_for('static', filename = 'img/portfolio/cabin.png') }}" alt="">
-                    </div>
-                </div>
-                <!-- Portfolio Item 2 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
-                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                            <div class="portfolio-item-caption-content text-center text-white">
-                                <i class="fas fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img class="img-fluid" src="{{ url_for('static', filename = 'img/portfolio/cake.png') }}" alt="">
-                    </div>
-                </div>
-                <!-- Portfolio Item 3 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
-                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                            <div class="portfolio-item-caption-content text-center text-white">
-                                <i class="fas fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img class="img-fluid" src="{{ url_for('static', filename = 'img/portfolio/circus.png') }}" alt="">
-                    </div>
-                </div>
-                <!-- Portfolio Item 4 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
-                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                            <div class="portfolio-item-caption-content text-center text-white">
-                                <i class="fas fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img class="img-fluid" src="{{ url_for('static', filename = 'img/portfolio/game.png') }}" alt="">
-                    </div>
-                </div>
-                <!-- Portfolio Item 5 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
-                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                            <div class="portfolio-item-caption-content text-center text-white">
-                                <i class="fas fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img class="img-fluid" src="{{ url_for('static', filename = 'img/portfolio/safe.png') }}" alt="">
-                    </div>
-                </div>
-                <!-- Portfolio Item 6 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal6">
-                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                            <div class="portfolio-item-caption-content text-center text-white">
-                                <i class="fas fa-plus fa-3x"></i>
-                            </div>
-                        </div>
-                        <img class="img-fluid" src="{{ url_for('static', filename = 'img/portfolio/submarine.png') }}" alt="">
-                    </div>
-                </div>
-            </div>
-            <!-- /.row -->
+        </div>
+        <div class="container">
+            <canvas id="chart-code-frequency"></canvas>
         </div>
     </section>
     <!-- About Section -->
@@ -516,7 +451,46 @@
     <script src="{{ url_for('static', filename = 'js/jqBootstrapValidation.js') }}"></script>
     <script src="{{ url_for('static', filename = 'js/contact_me.js') }}"></script>
     <!-- Custom scripts for this template -->
-    <script src="{{ url_for('static', filename = 'js/freelancer.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/index.js') }}"></script>
+    <script type="text/javascript">
+        var config_chart_code_frequency = {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                        randomScalingFactor(),
+                    ],
+                    backgroundColor: [
+                        window.chartColors.red,
+                        window.chartColors.orange,
+                        window.chartColors.yellow,
+                        window.chartColors.green,
+                        window.chartColors.blue,
+                    ],
+                    label: 'Code Frequency'
+                }],
+                labels: [
+                    'Red',
+                    'Orange',
+                    'Yellow',
+                    'Green',
+                    'Blue'
+                ]
+            },
+            options: {
+                responsive: true
+            }
+        };
+
+        window.onload = function() {
+            var ctx = document.getElementById('chart-code-frequency').getContext('2d');
+            window.myPie = new Chart(ctx, config_chart_code_frequency);
+        };
+    </script>
 </body>
 
 </html>

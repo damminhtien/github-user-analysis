@@ -10,23 +10,31 @@ authentication = HTTPBasicAuth(username, password)
 target_user = 'damminhtien'
 
 
+def fetch_user(target_user):
+	user_data = requests.get('https://api.github.com/users/' + target_user, auth = authentication).json()
+	data = {}
+	data['login'] = user_data['login']
+	data['name'] = user_data['name']
+	data['avatar_url'] = user_data['avatar_url']
+	data['company'] = user_data['company']
+	data['bio'] = user_data['bio']
+	data['public_repos'] = user_data['public_repos']
+	data['followers'] = user_data['followers']
+	data['following'] = user_data['following']
+	data['created_at'] = user_data['created_at']
+
+	return data
+
+
 @app.route('/')
 def index():
 	data = {}
+	error = {}
+
 	try:
-	    user_data = requests.get('https://api.github.com/users/' + target_user, auth = authentication).json()
-	    data['user'] = {}
-	    data['user']['login'] = user_data['login']
-	    data['user']['name'] = user_data['name']
-	    data['user']['avatar_url'] = user_data['avatar_url']
-	    data['user']['company'] = user_data['company']
-	    data['user']['bio'] = user_data['bio']
-	    data['user']['public_repos'] = user_data['public_repos']
-	    data['user']['followers'] = user_data['followers']
-	    data['user']['following'] = user_data['following']
-	    data['user']['created_at'] = user_data['created_at']
+	    data['user'] = fetch_user(target_user)
 	except Exception as e:
-		return str(e)
+		error['fetch_user'] = str(e)
 
 	return render_template('index.html', data=data)
 
