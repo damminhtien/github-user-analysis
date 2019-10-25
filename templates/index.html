@@ -27,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Favourite Language</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Favourite Languages</a>
                     </li>
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Code Frequency</a>
@@ -61,11 +61,11 @@
             <p class="masthead-subheading font-weight-light mb-0">Date joined: {{data.user.created_at}}</p>
         </div>
     </header>
-    <!-- Portfolio Section -->
+    <!-- Favorite Languages Section -->
     <section class="page-section portfolio" id="portfolio">
         <div class="container">
             <!-- Portfolio Section Heading -->
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h2>
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Favorite Languages</h2>
             <!-- Icon Divider -->
             <div class="divider-custom">
                 <div class="divider-custom-line"></div>
@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="container">
-            <canvas id="chart-code-frequency"></canvas>
+            <div id="chart-favorite-languages" style="height: 450px; max-width: 920px; margin: 0px auto;"></div>
         </div>
     </section>
     <!-- About Section -->
@@ -442,8 +442,31 @@
             </div>
         </div>
     </div>
+    <script>
+        window.onload = function() {
+            var chart = new CanvasJS.Chart("chart-favorite-languages", {
+                theme: "light2", // "light1", "light2", "dark1", "dark2"
+                exportEnabled: true,
+                animationEnabled: true,
+                data: [{
+                    type: "pie",
+                    startAngle: 0,
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}%",
+                    dataPoints: [
+                        {% for i in range(0,data.lang.len) %}
+                            { y: {{data.lang.times_used[i]}}, label: '{{data.lang.language_used[i]}}' },
+                        {% endfor %}
+                    ]
+                }]
+            });
+            chart.render();
+        };
+    </script>
     <!-- Bootstrap core JavaScript -->
-    <script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
     <script src="{{ url_for('static', filename = 'vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename = 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- Plugin JavaScript -->
@@ -453,33 +476,7 @@
     <script src="{{ url_for('static', filename = 'js/contact_me.js') }}"></script>
     <!-- Custom scripts for this template -->
     <script src="{{ url_for('static', filename = 'js/index.js') }}"></script>
-    <script type="text/javascript">
-        var config_chart_code_frequency = {
-            type: 'pie',
-            data: {
-                datasets: [{
-                    data: {{data.lang.times_used}}
-                    backgroundColor: [
-                        window.chartColors.red,
-                        window.chartColors.orange,
-                        window.chartColors.yellow,
-                        window.chartColors.green,
-                        window.chartColors.blue,
-                    ],
-                    label: 'Code Frequency'
-                }],
-                labels: {{data.lang.language_used}}
-            },
-            options: {
-                responsive: true
-            }
-        };
-
-        window.onload = function() {
-            var ctx = document.getElementById('chart-code-frequency').getContext('2d');
-            window.myPie = new Chart(ctx, config_chart_code_frequency);
-        };
-    </script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 
 </html>
