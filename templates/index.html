@@ -451,11 +451,11 @@
                 data: [{
                     type: "pie",
                     startAngle: 0,
-                    toolTipContent: "<b>{label}</b>: {y}%",
+                    toolTipContent: "<b>{label}</b>: {y} points",
                     showInLegend: "true",
                     legendText: "{label}",
                     indexLabelFontSize: 16,
-                    indexLabel: "{label} - {y}%",
+                    indexLabel: "{label} - {y}",
                     dataPoints: [
                         {% for i in range(0,data.lang.len) %}
                             { y: {{data.lang.times_used[i]}}, label: '{{data.lang.language_used[i]}}' },

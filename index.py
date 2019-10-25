@@ -107,7 +107,6 @@ def user(user):
 
 		_language_ignore = ['HTML', 'CSS', 'Jupyter Notebook']
 		language_used = []
-		total_times = 0
 		times_used = []
 
 		for rd in repos_data:
@@ -123,10 +122,6 @@ def user(user):
 					times_used.append(response[l])
 				else:
 					times_used[language_used.index(l)] = times_used[language_used.index(l)] + response[l]
-				total_times += response[l]
-
-		for i in range(len(language_used)):
-			times_used[i] /= total_times
 
 		data['lang'] = {}
 		data['lang']['language_used'] = language_used
