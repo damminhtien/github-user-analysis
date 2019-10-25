@@ -1,2 +1,2 @@
 username = 'damminhtien'
-password = 'tien658215'
+password = '********'
