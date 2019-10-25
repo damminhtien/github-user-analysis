@@ -133,4 +133,4 @@ def user(user):
 	return return_template('index.html', data=data, error=error)
 
 
-app.run(use_debugger= True, debug= True)
+app.run(host='0.0.0.0', use_debugger= True, debug= True)
