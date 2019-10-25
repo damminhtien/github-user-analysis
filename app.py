@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect
 import json
 from setting import username, password
-from helper import fetch_user
+from helper import fetch_user, fetch_lang
 from requests.auth import HTTPBasicAuth
 import requests
 
