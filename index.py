@@ -132,4 +132,5 @@ def user(user):
 
 	return return_template('index.html', data=data, error=error)
 
+
 app.run(use_debugger= True, debug= True)
