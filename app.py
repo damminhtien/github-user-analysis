@@ -28,49 +28,7 @@ def index():
 		error['fetch_user'] = str(e)
 
 	try:
-		base_url = 'https://api.github.com/users/' + target_user + '/repos'
-		url = base_url
-		page_no = 1
-		repos_data = []
-		while (True):
-		    response = requests.get(url, auth = authentication)
-		    response = response.json()
-		    repos_data = repos_data + response
-		    repos_fetched = len(response)
-		    print(page_no)
-		    if (repos_fetched == 30):
-		        page_no = page_no + 1
-		        url = base_url + '?page=' + str(page_no)
-		    else:
-		        break
-
-		_language_ignore = ['HTML', 'CSS', 'Jupyter Notebook']
-		language_used = []
-		total_times = 0
-		times_used = []
-
-		for rd in repos_data:
-			print(rd['name'])
-			if rd['fork']: continue
-			response = requests.get(rd['languages_url'], auth = authentication)
-			response = response.json()
-			language_rd = list(response.keys())
-			for l in language_rd:
-				if l in _language_ignore: continue
-				if l not in language_used: 
-					language_used.append(l)
-					times_used.append(response[l])
-				else:
-					times_used[language_used.index(l)] = times_used[language_used.index(l)] + response[l]
-				total_times += response[l]
-
-		for i in range(len(language_used)):
-			times_used[i] /= total_times
-
-		data['lang'] = {}
-		data['lang']['language_used'] = language_used
-		data['lang']['times_used'] = times_used
-		data['lang']['len'] = len(language_used)
+		data['lang'] = fetch_lang(target_user, authentication)
 	except Exception as e:
 		error['fetch_lang'] = str(e)
 
@@ -89,48 +47,12 @@ def user(user):
 		error['fetch_user'] = str(e)
 
 	try:
-		base_url = 'https://api.github.com/users/' + target_user + '/repos'
-		url = base_url
-		page_no = 1
-		repos_data = []
-		while (True):
-		    response = requests.get(url, auth = authentication)
-		    response = response.json()
-		    repos_data = repos_data + response
-		    repos_fetched = len(response)
-		    print(page_no)
-		    if (repos_fetched == 30):
-		        page_no = page_no + 1
-		        url = base_url + '?page=' + str(page_no)
-		    else:
-		        break
-
-		_language_ignore = ['HTML', 'CSS', 'Jupyter Notebook']
-		language_used = []
-		times_used = []
-
-		for rd in repos_data:
-			print(rd['name'])
-			if rd['fork']: continue
-			response = requests.get(rd['languages_url'], auth = authentication)
-			response = response.json()
-			language_rd = list(response.keys())
-			for l in language_rd:
-				if l in _language_ignore: continue
-				if l not in language_used: 
-					language_used.append(l)
-					times_used.append(response[l])
-				else:
-					times_used[language_used.index(l)] = times_used[language_used.index(l)] + response[l]
-
-		data['lang'] = {}
-		data['lang']['language_used'] = language_used
-		data['lang']['times_used'] = times_used
-		data['lang']['len'] = len(language_used)
+		data['lang'] = fetch_lang(target_user, authentication)
 	except Exception as e:
 		error['fetch_lang'] = str(e)
 
 	return return_template('index.html', data=data, error=error)
 
 
-app.run(threaded=True, port=5000)
+if __name__ == '__main__':
+	app.run(host='0.0.0.0', threaded=True, port=5000)
