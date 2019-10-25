@@ -14,25 +14,42 @@ Most Common Languages:
 ![most_common_languages](https://github.com/damminhtien/Github_user_analysis/blob/master/most_common_languages.png)
 <br/>
 
-Stars per repository:
+Stars per repository: :heavy_check_mark:
 
 ![star_per_repo](https://github.com/damminhtien/Github_user_analysis/blob/master/star_per_repo.png)
 <br/>
 
-Commits per repository:
+Commits per repository: :heavy_check_mark:
 
 ![commit_per_repo](https://github.com/damminhtien/Github_user_analysis/blob/master/commit_per_repo.png)
 <br/>
 
-Commits per year:
+Commits per year: :heavy_check_mark:
 
 ![commit_per_year](https://github.com/damminhtien/Github_user_analysis/blob/master/commit_per_year.png)
 <br/>
 
-Commits per month:
+Commits per month: :heavy_check_mark:
 
 ![commit_per_month](https://github.com/damminhtien/Github_user_analysis/blob/master/commit_per_month.png)
 
+## Ver 2: on web :heavy_check_mark:
+1. Install neccessary packages
+```bash
+pip install requirements.txt
+```
 
+2. Start Flask server
+```bash
+python app.py
+```
+or
+```bash
+gunicorn app:app
+```
 
-Ver 2: on web (comming soon)
+3. Open browser and enjoy~
+
+See me: [localhost:5000](localhost:5000)
+
+See specific user: [localhost:5000/user/<user-name>](localhost:5000/user/torvalds)
