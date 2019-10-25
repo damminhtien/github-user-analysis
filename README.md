@@ -38,8 +38,9 @@ Commits per month: :heavy_check_mark:
 ```bash
 pip install requirements.txt
 ```
+2. Set your password in setting.py file
 
-2. Start Flask server
+3. Start Flask server
 ```bash
 python app.py
 ```
@@ -48,7 +49,7 @@ or
 gunicorn app:app
 ```
 
-3. Open browser and enjoy~
+4. Open browser and enjoy~
 
 See me: [localhost:5000](localhost:5000)
 
